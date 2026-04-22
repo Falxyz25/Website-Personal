@@ -442,6 +442,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -452,6 +453,8 @@ body {
   color: var(--text);
   font-family: "Plus Jakarta Sans", "Segoe UI", sans-serif;
   line-height: 1.75;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
 }
 
 body:not(.intro-ready) .eyebrow,
@@ -561,9 +564,15 @@ a:focus {
   overflow: hidden;
 }
 
+img {
+  max-width: 100%;
+}
+
 .modern-navbar {
   padding: 18px 0;
   transition: background 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
+  padding-left: max(0px, env(safe-area-inset-left));
+  padding-right: max(0px, env(safe-area-inset-right));
 }
 
 .modern-navbar:not(.navbar-transparent) {
@@ -639,6 +648,7 @@ a:focus {
 .hero-section {
   position: relative;
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
   padding: 140px 0 80px;
@@ -789,6 +799,7 @@ a:focus {
 .meta-link {
   color: #dbe7fb;
   font-weight: 600;
+  overflow-wrap: anywhere;
 }
 
 .meta-link:hover,
@@ -1288,6 +1299,10 @@ a:focus {
   align-items: center;
   justify-content: center;
   padding: 24px;
+  padding-left: max(24px, env(safe-area-inset-left));
+  padding-right: max(24px, env(safe-area-inset-right));
+  padding-top: max(24px, env(safe-area-inset-top));
+  padding-bottom: max(24px, env(safe-area-inset-bottom));
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -1603,6 +1618,7 @@ a:focus {
 
 .modern-footer {
   padding: 30px 0 48px;
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
   background: transparent;
 }
 
@@ -1658,12 +1674,40 @@ a:focus {
     backdrop-filter: blur(16px);
   }
 
+  .navbar .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .navbar .navbar-toggler {
+    margin-right: 0;
+    padding: 0.65rem 0.75rem;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
   .navbar .navbar-collapse {
     margin-top: 14px;
     padding: 18px;
     border-radius: 20px;
     background: rgba(10, 18, 32, 0.94);
     border: 1px solid rgba(255, 255, 255, 0.08);
+    max-height: calc(100vh - 110px);
+    overflow-y: auto;
+  }
+
+  .navbar .navbar-nav {
+    align-items: stretch !important;
+  }
+
+  .navbar .navbar-nav .nav-link,
+  .navbar .navbar-nav .btn {
+    width: 100%;
+  }
+
+  .navbar .navbar-nav .nav-link {
+    padding: 0.85rem 0;
   }
 
   .nav-cta {
@@ -1674,10 +1718,16 @@ a:focus {
   .hero-section {
     min-height: auto;
     padding-top: 120px;
+    padding-bottom: 72px;
   }
 
   .hero-card {
     margin-top: 34px;
+  }
+
+  .hero-title,
+  .editorial-copy h3 {
+    line-height: 1.04;
   }
 
   .hero-signals {
@@ -1721,6 +1771,25 @@ a:focus {
     padding: 84px 0;
   }
 
+  .container {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+
+  .hero-section {
+    padding-top: 108px;
+    padding-bottom: 56px;
+  }
+
+  .hero-title {
+    margin-top: 18px;
+    font-size: clamp(2.2rem, 11vw, 3.4rem);
+  }
+
+  .hero-copy {
+    font-size: 0.98rem;
+  }
+
   .hero-actions,
   .contact-actions {
     flex-direction: column;
@@ -1736,6 +1805,21 @@ a:focus {
   .hero-meta {
     flex-direction: column;
     gap: 10px;
+  }
+
+  .hero-stats > [class*="col-"] + [class*="col-"] {
+    margin-top: 18px;
+  }
+
+  .trust-ribbon {
+    gap: 10px;
+  }
+
+  .trust-ribbon span,
+  .capability-grid span {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
   }
 
   .featured-editorial {
@@ -1769,6 +1853,10 @@ a:focus {
 
   .certificate-lightbox {
     padding: 18px;
+    padding-left: max(18px, env(safe-area-inset-left));
+    padding-right: max(18px, env(safe-area-inset-right));
+    padding-top: max(18px, env(safe-area-inset-top));
+    padding-bottom: max(18px, env(safe-area-inset-bottom));
   }
 
   .certificate-lightbox-dialog {
@@ -1789,6 +1877,50 @@ a:focus {
   .footer-inner {
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .hero-photo {
+    aspect-ratio: 4 / 4.9;
+  }
+
+  .hero-card h2,
+  .spotlight-intro h3,
+  .approach-card h3 {
+    font-size: 1.5rem;
+  }
+
+  .timeline-card,
+  .education-card,
+  .contact-card,
+  .feature-spotlight,
+  .featured-editorial {
+    border-radius: 22px;
+  }
+
+  .timeline-gallery {
+    gap: 14px;
+  }
+
+  .timeline-gallery .certificate-trigger {
+    flex-basis: 88%;
+  }
+
+  .timeline-gallery .certificate-trigger img {
+    height: 220px;
+  }
+
+  .timeline-slider-controls {
+    gap: 12px;
+  }
+
+  .timeline-slider-dots {
+    gap: 8px;
+  }
+
+  .contact-card {
+    padding: 22px;
   }
 }
 
